@@ -17,3 +17,9 @@ def patch_validate_signature_v():
     import eth_tester.validation.outbound as outbound
     outbound.validate_signature_v = patched_validate_signature_v
     outbound.TRANSACTION_VALIDATORS['v'] = patched_validate_signature_v
+
+
+@pytest.fixture(autouse=True)
+def patch_genesis_gas_limit():
+    import eth_tester.backends.pyevm.main as pyevm_main
+    pyevm_main.GENESIS_GAS_LIMIT = 6 * 10 ** 6
